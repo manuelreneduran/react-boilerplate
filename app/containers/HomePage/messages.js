@@ -12,4 +12,8 @@ export default defineMessages({
     id: `${scope}.header`,
     defaultMessage: 'This is the HomePage container!',
   },
+  pageInfoMessage: {
+    id: `${scope}.pageInfoMessage`,
+    defaultMessage: 'Behold: your strings!',
+  },
 });

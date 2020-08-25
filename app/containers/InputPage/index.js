@@ -1,7 +1,7 @@
 /*
- * HomePage
+ * InputPage
  *
- * This is the first thing users see of our App, at the '/' route
+ * This page allows users to input a string and send to server
  *
  */
 
@@ -10,12 +10,12 @@ import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
-export default function HomePage() {
+export default function InputPage() {
   return (
     <div>
       <Helmet>
         <title>Input Page</title>
-        <meta name="description" content="A home page" />
+        <meta name="description" content="An input page" />
       </Helmet>
       <h1>
         <FormattedMessage {...messages.header} />
