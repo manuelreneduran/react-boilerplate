@@ -15,7 +15,6 @@ import styled from 'styled-components';
 import HomePage from 'containers/HomePage/Loadable';
 import InputPage from 'containers/InputPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
-import Header from 'components/Header';
 
 import GlobalStyle from '../../global-styles';
 
@@ -40,7 +39,6 @@ export default function App() {
           content="A Manuel Duran DMI Challenge application"
         />
       </Helmet>
-      <Header />
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route path="/input" component={InputPage} />
