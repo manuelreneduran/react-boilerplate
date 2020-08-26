@@ -46,5 +46,8 @@ export function request(url, options) {
 }
 
 export function axiosPost(url, options) {
-  return axios.post(url, options).then(checkStatus);
+  return axios
+    .post(url, options)
+    .then(checkStatus)
+    .catch(err => err);
 }
