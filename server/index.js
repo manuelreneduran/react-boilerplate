@@ -3,6 +3,7 @@
 const express = require('express');
 const logger = require('./logger');
 const morganLogger = require('morgan');
+const parser = require('body-parser');
 const argv = require('./argv');
 const port = require('./port');
 const setup = require('./middlewares/frontendMiddleware');
@@ -19,15 +20,12 @@ const app = express();
 
 // Morgan logger
 app.use(morganLogger('dev'));
-
-// route for '/strings' endpoint
+app.use(parser.json());
+app.use(parser.urlencoded({ extended: false }));
+// If you need a backend, e.g. an API, add your custom backend-specific middleware here
+// app.use('/api', myApi);
 app.use('/strings', stringsRouter);
 
-// route for errors
-app.use((err, res) => {
-  console.error(err.stack);
-  res.status(500).send('Something broke!');
-});
 // In production we need to pass these values in instead of relying on webpack
 setup(app, {
   outputPath: resolve(process.cwd(), 'build'),

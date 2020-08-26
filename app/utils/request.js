@@ -45,6 +45,6 @@ export function request(url, options) {
     .then(parseJSON);
 }
 
-export function post(url, options) {
+export function axiosPost(url, options) {
   return axios.post(url, options).then(checkStatus);
 }

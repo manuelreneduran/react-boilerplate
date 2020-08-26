@@ -1,4 +1,4 @@
-const strings = ['blah'];
+var strings = ['blah'];
 
 exports.getAll = async (req, res) => {
   res.json(strings);
@@ -6,5 +6,6 @@ exports.getAll = async (req, res) => {
 
 exports.addOne = async req => {
   console.log('added one');
-  console.log(req.body.string);
+  strings.push(req.body.data.string);
+  console.log(strings);
 };
