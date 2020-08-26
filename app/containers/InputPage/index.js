@@ -21,7 +21,7 @@ import {
 import InputLabel from '../../components/InputLabel';
 import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
-import { changeStringInput, addString } from './actions';
+import { changeStringInput, addString, addStringFailure } from './actions';
 import reducer from './reducer';
 import messages from './messages';
 import saga from './saga';
@@ -35,14 +35,26 @@ function InputPage({
   error,
   loading,
   complete,
+  setError,
 }) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
-  const inputLabelProps = {
-    loading,
-    error,
+  const validate = e => {
+    e.preventDefault();
+    if (stringInput.length === 0) {
+      setError({ content: 'You must have at least one character' });
+    } else {
+      onSubmitForm();
+    }
   };
+
+  const inputLabelProps = {
+    error,
+    loading,
+    complete,
+  };
+
   return (
     <div>
       <Helmet>
@@ -55,7 +67,7 @@ function InputPage({
       <h3>
         <FormattedMessage {...messages.pageInfoMessage} />
       </h3>
-      <form onSubmit={onSubmitForm}>
+      <form onSubmit={e => validate(e)}>
         <input
           onChange={onInputChange}
           value={stringInput}
@@ -63,7 +75,7 @@ function InputPage({
           placeholder="Add a string name"
         />
         <button type="submit">Add string</button>
-        {complete && <InputLabel {...inputLabelProps} />}
+        <InputLabel {...inputLabelProps} />
       </form>
     </div>
   );
@@ -86,9 +98,11 @@ export function mapDispatchToProps(dispatch) {
       if (evt !== undefined && evt.preventDefault) evt.preventDefault();
       dispatch(changeStringInput(evt.target.value));
     },
-    onSubmitForm: evt => {
-      if (evt !== undefined && evt.preventDefault) evt.preventDefault();
+    onSubmitForm: () => {
       dispatch(addString());
+    },
+    setError: err => {
+      dispatch(addStringFailure(err));
     },
   };
 }

@@ -36,7 +36,7 @@ const inputReducer = (state = initialState, action) =>
         draft.error = false;
         break;
       case ADD_STRING_FAILURE:
-        draft.complete = false;
+        draft.complete = true;
         draft.loading = false;
         draft.error = action.error;
         break;

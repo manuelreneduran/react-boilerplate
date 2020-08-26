@@ -3,19 +3,19 @@ import PropTypes from 'prop-types';
 import Label from './Label';
 import LoadingIndicator from '../LoadingIndicator';
 
-function InputLabel({ error, loading }) {
+function InputLabel({ error, loading, complete }) {
   let content;
   if (loading) {
     return <LoadingIndicator />;
   }
 
   if (error) {
-    content = 'Failed to process';
+    content = error.content || error;
   } else {
     content = 'Success!';
   }
 
-  return <Label error={error}>{content}</Label>;
+  return <> {complete && <Label error={error}>{content}</Label>} </>;
 }
 
 Label.propTypes = {
