@@ -19,10 +19,17 @@ export function* addStringToDb() {
   };
 
   try {
-    yield call(axiosPost, requestURL, options);
+    const data = yield call(axiosPost, requestURL, options);
+    if (data.response && !data.response.ok) {
+      throw new Error(data);
+    }
     yield put(addStringSuccess());
   } catch (err) {
-    yield put(addStringFailure(err));
+    yield put(
+      addStringFailure({
+        content: 'Error fetching from server - please try again',
+      }),
+    );
   }
 }
 

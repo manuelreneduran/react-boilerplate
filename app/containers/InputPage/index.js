@@ -54,14 +54,6 @@ function InputPage({
     validate,
     onSubmitForm,
   );
-  // const validate = e => {
-  //   e.preventDefault();
-  //   if (stringInput.length === 0) {
-  //     setError({ content: 'You must have at least one character' });
-  //   } else {
-  //     onSubmitForm();
-  //   }
-  // };
 
   const inputLabelProps = {
     error,

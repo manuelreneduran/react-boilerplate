@@ -30,13 +30,13 @@ import messages from './messages';
 
 const key = 'home';
 
-function HomePage({ loading, error, strings, clickHandler }) {
+function HomePage({ loading, error, strings, loadStrings }) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
   useEffect(() => {
     // submit the form to load strings
-    clickHandler();
+    loadStrings();
   }, []);
 
   const stringsListProps = {
@@ -68,7 +68,7 @@ HomePage.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   strings: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]),
-  clickHandler: PropTypes.func,
+  loadStrings: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -79,7 +79,7 @@ const mapStateToProps = createStructuredSelector({
 
 export function mapDispatchToProps(dispatch) {
   return {
-    clickHandler: evt => {
+    loadStrings: evt => {
       if (evt !== undefined && evt.preventDefault) evt.preventDefault();
       dispatch(loadStrings());
     },

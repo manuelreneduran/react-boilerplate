@@ -1,7 +1,6 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { LOAD_STRINGS } from 'containers/App/constants';
 import { stringsLoaded, stringsLoadingError } from 'containers/App/actions';
-
 import { request } from 'utils/request';
 
 /**
@@ -9,12 +8,16 @@ import { request } from 'utils/request';
  */
 export function* getStrings() {
   const requestURL = `/strings/all`;
-
   try {
-    const strings = yield call(request, requestURL);
-    yield put(stringsLoaded(strings));
+    const data = yield call(request, requestURL);
+    if (data.response && !data.response.ok) {
+      throw new Error('Error retreiving strings, please try again');
+    }
+    yield put(stringsLoaded(data));
+
+    //set strings to global state
   } catch (err) {
-    yield put(stringsLoadingError(err));
+    yield put(stringsLoadingError(true));
   }
 }
 

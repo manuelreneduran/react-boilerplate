@@ -1,3 +1,9 @@
+/*
+ *
+ * This handles this component's validation logic for its inputs
+ *
+ */
+
 export default function validateInput(values) {
   let errors = {};
 

@@ -9,13 +9,15 @@ function List(props) {
   let content = <div />;
 
   // If we have items, render them
-  if (props.items) {
+  if (props.items && props.items.length > 0) {
     content = props.items.map((item, id) => (
       <ComponentToRender key={`item-${item + id}`} item={item} />
     ));
   } else {
     // Otherwise render a single component
-    content = <ComponentToRender />;
+    content = (
+      <ComponentToRender item="You haven't added any strings yet - what are you waiting for?" />
+    );
   }
 
   return (
