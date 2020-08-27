@@ -24,6 +24,7 @@ const inputReducer = (state = initialState, action) =>
         // Delete prefixed '@' from the github username
         draft.data.stringInput = action.stringInput;
         draft.complete = false;
+        draft.error = false;
         break;
       case ADD_STRING:
         draft.loading = true;
@@ -34,6 +35,7 @@ const inputReducer = (state = initialState, action) =>
         draft.complete = true;
         draft.loading = false;
         draft.error = false;
+        draft.data.stringInput = '';
         break;
       case ADD_STRING_FAILURE:
         draft.complete = true;

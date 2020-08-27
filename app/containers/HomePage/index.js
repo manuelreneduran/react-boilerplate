@@ -13,6 +13,8 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
+import H1 from '../../components/H1';
+import H3 from '../../components/H3';
 import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
 import StringsList from '../../components/StringsList';
@@ -49,12 +51,12 @@ function HomePage({ loading, error, strings, clickHandler }) {
         <title>Input Page</title>
         <meta name="description" content="A home page" />
       </Helmet>
-      <h1>
+      <H1>
         <FormattedMessage {...messages.header} />
-      </h1>
-      <h3>
+      </H1>
+      <H3>
         <FormattedMessage {...messages.pageInfoMessage} />
-      </h3>
+      </H3>
       <div>
         <StringsList {...stringsListProps} />
       </div>

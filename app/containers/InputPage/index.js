@@ -18,13 +18,21 @@ import {
   makeSelectLoading,
   makeSelectComplete,
 } from './selectors';
+import H1 from '../../components/H1';
+import H3 from '../../components/H3';
+import Input from '../../components/Input';
 import InputLabel from '../../components/InputLabel';
+import useFormValidation from '../../hooks/useFormValidation';
 import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
 import { changeStringInput, addString, addStringFailure } from './actions';
 import reducer from './reducer';
 import messages from './messages';
+import CenteredSection from './CenteredSection';
+import FormContent from './FormContent';
+import Form from './Form';
 import saga from './saga';
+import validate from './validateInput';
 
 const key = 'inputPage';
 
@@ -35,19 +43,25 @@ function InputPage({
   error,
   loading,
   complete,
-  setError,
+  setErrors,
 }) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
-  const validate = e => {
-    e.preventDefault();
-    if (stringInput.length === 0) {
-      setError({ content: 'You must have at least one character' });
-    } else {
-      onSubmitForm();
-    }
-  };
+  const { handleBlur, handleSubmit } = useFormValidation(
+    stringInput,
+    setErrors,
+    validate,
+    onSubmitForm,
+  );
+  // const validate = e => {
+  //   e.preventDefault();
+  //   if (stringInput.length === 0) {
+  //     setError({ content: 'You must have at least one character' });
+  //   } else {
+  //     onSubmitForm();
+  //   }
+  // };
 
   const inputLabelProps = {
     error,
@@ -61,22 +75,37 @@ function InputPage({
         <title>Input Page</title>
         <meta name="description" content="An input page" />
       </Helmet>
-      <h1>
+      <H1>
         <FormattedMessage {...messages.header} />
-      </h1>
-      <h3>
+      </H1>
+      <H3>
         <FormattedMessage {...messages.pageInfoMessage} />
-      </h3>
-      <form onSubmit={e => validate(e)}>
-        <input
-          onChange={onInputChange}
-          value={stringInput}
-          type="text"
-          placeholder="Add a string name"
-        />
-        <button type="submit">Add string</button>
-        <InputLabel {...inputLabelProps} />
-      </form>
+      </H3>
+      <CenteredSection>
+        <Form onSubmit={e => handleSubmit(e)}>
+          <FormContent>
+            <Input
+              onBlur={handleBlur}
+              onChange={onInputChange}
+              value={stringInput}
+              type="text"
+              placeholder="Add a string name"
+              error={error}
+            />
+          </FormContent>
+
+          <FormContent>
+            <button type="submit">Add string</button>
+          </FormContent>
+
+          <FormContent>
+            <InputLabel
+              {...inputLabelProps}
+              content="Success - go check out your strings!"
+            />
+          </FormContent>
+        </Form>
+      </CenteredSection>
     </div>
   );
 }
@@ -101,7 +130,7 @@ export function mapDispatchToProps(dispatch) {
     onSubmitForm: () => {
       dispatch(addString());
     },
-    setError: err => {
+    setErrors: err => {
       dispatch(addStringFailure(err));
     },
   };
