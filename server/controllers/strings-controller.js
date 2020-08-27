@@ -8,11 +8,11 @@ function getRandomInt(min, max) {
 
 const mimicUsingDB = (ms, strings) => {
   //meant to mimic random error events
-  const randomInt = getRandomInt(0, 10);
-  const randomDBError = randomInt < 2;
+  // const randomInt = getRandomInt(0, 10);
+  // const randomDBError = randomInt < 2;
   return new Promise(function(resolve, reject) {
     setTimeout(() => {
-      return randomDBError ? reject(new Error('DB Error')) : resolve(strings);
+      return resolve(strings);
     }, ms);
   });
 };
