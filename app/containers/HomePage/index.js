@@ -5,7 +5,7 @@
  *
  */
 
-import React, { memo, useEffect } from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
@@ -13,10 +13,10 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
-import H1 from '../../components/H1';
-import H3 from '../../components/H3';
 import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
+import H1 from '../../components/H1';
+import H3 from '../../components/H3';
 import StringsList from '../../components/StringsList';
 import {
   makeSelectStrings,

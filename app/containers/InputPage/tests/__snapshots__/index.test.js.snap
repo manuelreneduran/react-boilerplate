@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<InputPage /> should render and match the snapshot 1`] = `
+<div>
+  <h1
+    class="H1-tncdg6-0 cJREqO"
+  >
+    <span>
+      This is the Input Page
+    </span>
+  </h1>
+  <h3
+    class="H3-sc-1nwhpi5-0 heZsqC"
+  >
+    <span>
+      Write something and send it to the server!
+    </span>
+  </h3>
+  <section
+    class="CenteredSection-sc-1jg9oos-0 gJqWTy"
+  >
+    <form
+      class="Form-sc-4e0erd-0 gGPaDr"
+      data-testid="form"
+    >
+      <div
+        class="FormContent-sc-1k2sc3h-0 gCaPjC"
+      >
+        <input
+          class="Input-sc-19txxuq-0 hjivrB"
+          placeholder="Add a string name"
+          type="text"
+          value=""
+        />
+      </div>
+      <div
+        class="FormContent-sc-1k2sc3h-0 gCaPjC"
+      >
+        <button
+          role="button"
+          type="submit"
+        >
+          Add string
+        </button>
+      </div>
+      <div
+        class="FormContent-sc-1k2sc3h-0 gCaPjC"
+      >
+         
+         
+      </div>
+    </form>
+  </section>
+</div>
+`;

@@ -1,22 +1,9 @@
-var strings = [];
+const strings = [];
 
-function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-const mimicUsingDB = (ms, strings) => {
-  //meant to mimic random error events
-  // const randomInt = getRandomInt(0, 10);
-  // const randomDBError = randomInt < 2;
-  return new Promise(function(resolve, reject) {
-    setTimeout(() => {
-      return resolve(strings);
-    }, ms);
+const mimicUsingDB = (ms, strings) =>
+  new Promise(function(resolve) {
+    setTimeout(() => resolve(strings), ms);
   });
-};
-
 exports.getAll = (req, res) => {
   mimicUsingDB(1250, strings)
     .then(data => res.status(200).json(data))

@@ -12,7 +12,16 @@ function InputLabel({ error, loading, complete, content }) {
     content = error.content || error;
   }
 
-  return <> {complete && <Label error={error}>{content}</Label>} </>;
+  return (
+    <>
+      {' '}
+      {complete && (
+        <Label data-testid="string-input" error={error}>
+          {content}
+        </Label>
+      )}{' '}
+    </>
+  );
 }
 
 Label.propTypes = {
@@ -20,6 +29,7 @@ Label.propTypes = {
   error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   complete: PropTypes.bool,
   content: PropTypes.string,
+  forLabel: PropTypes.string,
 };
 
 export default InputLabel;

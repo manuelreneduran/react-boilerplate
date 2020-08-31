@@ -12,6 +12,8 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
+import { useInjectReducer } from 'utils/injectReducer';
+import { useInjectSaga } from 'utils/injectSaga';
 import {
   makeSelectInput,
   makeSelectError,
@@ -23,8 +25,6 @@ import H3 from '../../components/H3';
 import Input from '../../components/Input';
 import InputLabel from '../../components/InputLabel';
 import useFormValidation from '../../hooks/useFormValidation';
-import { useInjectReducer } from 'utils/injectReducer';
-import { useInjectSaga } from 'utils/injectSaga';
 import { changeStringInput, addString, addStringFailure } from './actions';
 import reducer from './reducer';
 import messages from './messages';
@@ -47,7 +47,6 @@ function InputPage({
 }) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
-
   const { handleBlur, handleSubmit } = useFormValidation(
     stringInput,
     setErrors,
@@ -74,7 +73,7 @@ function InputPage({
         <FormattedMessage {...messages.pageInfoMessage} />
       </H3>
       <CenteredSection>
-        <Form onSubmit={e => handleSubmit(e)}>
+        <Form data-testid="form" onSubmit={e => handleSubmit(e)}>
           <FormContent>
             <Input
               onBlur={handleBlur}
@@ -103,7 +102,13 @@ function InputPage({
 }
 
 InputPage.propTypes = {
-  stringInput: PropTypes.string,
+  stringInput: PropTypes.string.isRequired,
+  onInputChange: PropTypes.func,
+  onSubmitForm: PropTypes.func,
+  error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+  loading: PropTypes.bool,
+  complete: PropTypes.bool,
+  setErrors: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
